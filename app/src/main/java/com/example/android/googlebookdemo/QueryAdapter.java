@@ -44,7 +44,7 @@ public class QueryAdapter extends ArrayAdapter<BookInfo> {
         TextView bookAuthor =(TextView) listItemView.findViewById(R.id.book_author);
         String author = currentBook.getAuthor();
         bookAuthor.setText(author);
-        
+
         return listItemView;
     }
 }
