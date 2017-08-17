@@ -14,9 +14,9 @@ public class QueryLoader extends AsyncTaskLoader<List<BookInfo>> {
 
     private String mUrl;
 
-    public QueryLoader(Context context, String mUrl){
+    public QueryLoader(Context context, String url){
         super(context);
-        mUrl = mUrl;
+        mUrl = url;
     }
 
     @Override
