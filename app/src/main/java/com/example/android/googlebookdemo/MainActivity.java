@@ -1,29 +1,24 @@
 package com.example.android.googlebookdemo;
 
-import android.app.LoaderManager;
-import android.content.Loader;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<BookInfo>>{
+public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getName();
 
-    private QueryAdapter mQueryAdapter;
+//    private QueryAdapter mQueryAdapter;
 
     private Editable queryInput;
 
     private static String baseUrl = "https://www.googleapis.com/books/v1/volumes?q=";
-    private String queryUrl;
+    protected static String queryUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +27,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView listView = (ListView) findViewById(R.id.result_list_view);
-
-        mQueryAdapter = new QueryAdapter(this, new ArrayList<BookInfo>());
-
-        listView.setAdapter(mQueryAdapter);
+//        ListView listView = (ListView) findViewById(R.id.result_list_view);
+//
+//        mQueryAdapter = new QueryAdapter(this, new ArrayList<BookInfo>());
+//
+//        listView.setAdapter(mQueryAdapter);
 
         EditText editText = (EditText) findViewById(R.id.query_input);
         queryInput = editText.getText();
@@ -46,40 +41,45 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onClick(View v) {
                 if (queryInput == null){
-                    //待添加Intent弹出消息提示
+                    //Intent提示“请输入查询关键词”
 
                     queryUrl = null;
                 } else {
+                    //根据输入组合请求URL
                     queryUrl = baseUrl + queryInput.toString();
+
+                    //Intent启动ResultActivity
+                    Intent submitIntent = new Intent(MainActivity.this, ResultActivity.class);
+                    startActivity(submitIntent);
                 }
             }
         });
 
-        LoaderManager loaderManager = getLoaderManager();
-        loaderManager.initLoader(0, null, this);
+//        LoaderManager loaderManager = getLoaderManager();
+//        loaderManager.initLoader(0, null, this);
     }
 
-    @Override
-    public Loader<List<BookInfo>> onCreateLoader(int id, Bundle args) {
-        return new QueryLoader(this, queryUrl);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<BookInfo>> loader, List<BookInfo> data) {
-        View progressBar = findViewById(R.id.progress_bar);
-        progressBar.setVisibility(View.GONE);
-
-        mQueryAdapter.clear();
-
-        //如果JSON解析数据非null，则向adapter添加解析得到的Array
-        if (data != null && !data.isEmpty()){
-            mQueryAdapter.add((BookInfo) data);
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<BookInfo>> loader) {
-        mQueryAdapter.clear();
-
-    }
+//    @Override
+//    public Loader<List<BookInfo>> onCreateLoader(int id, Bundle args) {
+//        return new QueryLoader(this, queryUrl);
+//    }
+//
+//    @Override
+//    public void onLoadFinished(Loader<List<BookInfo>> loader, List<BookInfo> data) {
+//        View progressBar = findViewById(R.id.progress_bar);
+//        progressBar.setVisibility(View.GONE);
+//
+//        mQueryAdapter.clear();
+//
+//        //如果JSON解析数据非null，则向adapter添加解析得到的Array
+//        if (data != null && !data.isEmpty()){
+//            mQueryAdapter.add((BookInfo) data);
+//        }
+//    }
+//
+//    @Override
+//    public void onLoaderReset(Loader<List<BookInfo>> loader) {
+//        mQueryAdapter.clear();
+//
+//    }
 }

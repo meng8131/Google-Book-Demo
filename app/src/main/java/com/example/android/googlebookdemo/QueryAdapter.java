@@ -30,7 +30,7 @@ public class QueryAdapter extends ArrayAdapter<BookInfo> {
         View listItemView = convertView;
         if (listItemView == null){
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.query_results, parent, false);
+                    R.layout.activity_result, parent, false);
         }
 
         //find the book at the given position in the list of query results

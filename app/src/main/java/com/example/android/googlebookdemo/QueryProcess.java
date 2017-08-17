@@ -133,9 +133,13 @@ public class QueryProcess {
                 JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
                 String title = volumeInfo.getString("title");
 
+                JSONArray authors =null;
+                String firstAuthor =null;
                 //only fetch the first author
-                JSONArray authors = volumeInfo.getJSONArray("authors");
-                String firstAuthor = authors.getString(0);
+                if (volumeInfo.getJSONArray("authors") != null){
+                    authors = volumeInfo.getJSONArray("authors");
+                    firstAuthor = authors.getString(0);
+                }
 
                 BookInfo book = new BookInfo(title, firstAuthor);
                 books.add(book);
