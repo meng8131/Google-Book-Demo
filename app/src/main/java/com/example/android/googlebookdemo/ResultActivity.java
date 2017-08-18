@@ -38,16 +38,19 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public Loader<List<BookInfo>> onCreateLoader(int id, Bundle args) {
+        Log.i(LOG_TAG,"Method onCreateLoader is called");
         return new QueryLoader(this, queryUrl);
     }
 
 
     @Override
     public void onLoadFinished(Loader<List<BookInfo>> loader, List<BookInfo> data) {
+        Log.i(LOG_TAG,"Method onLoadFinished is called");
         View progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
 
         mQueryAdapter.clear();
+        Log.i(LOG_TAG,"Adapter is cleared before assigning parsed data");
 
         //如果JSON解析数据非null，则向adapter添加解析得到的Array
         if (data != null && !data.isEmpty()){
@@ -57,7 +60,9 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoaderReset(Loader<List<BookInfo>> loader) {
+        Log.i(LOG_TAG,"Method onLoaderReset is called");
         mQueryAdapter.clear();
+        Log.i(LOG_TAG,"Adapter is cleared");
 
     }
 }

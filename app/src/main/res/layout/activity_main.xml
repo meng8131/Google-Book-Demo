@@ -6,15 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.android.googlebookdemo.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="8dp">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Please input the book name"
-        android:id="@+id/query_input"/>
+        android:id="@+id/query_input"
+        android:textSize="18sp"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/query_submit"
-        android:text="Submit"/>
+        android:text="@string/submit_button"
+        android:layout_gravity="center"
+        android:textSize="18sp"/>
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.android.googlebookdemo;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -21,11 +22,13 @@ public class QueryLoader extends AsyncTaskLoader<List<BookInfo>> {
 
     @Override
     protected void onStartLoading() {
+        Log.i(LOG_TAG, "Method onStartLoading is called");
         forceLoad();
     }
 
     @Override
     public List<BookInfo> loadInBackground() {
+        Log.i(LOG_TAG, "Method loadInBackground is called");
         if (mUrl == null){
             return null;
         }

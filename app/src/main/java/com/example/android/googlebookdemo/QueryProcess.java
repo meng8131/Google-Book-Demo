@@ -78,8 +78,8 @@ public class QueryProcess {
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-
             if (urlConnection.getResponseCode() == 200){
+                Log.i(LOG_TAG,"Response code 200 is received");
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromSteam(inputStream);
             } else {
@@ -95,7 +95,9 @@ public class QueryProcess {
                 inputStream.close();
             }
         }
-        
+        Log.i(LOG_TAG,"Raw string response is returned");
+        Log.d(LOG_TAG,"Raw response is " + jsonResponse);
+
         return jsonResponse;
     }
 
@@ -118,6 +120,7 @@ public class QueryProcess {
     }
 
     private static List<BookInfo> extractFromJson(String responseJson) {
+        Log.i(LOG_TAG,"String response parsing starts");
         if (TextUtils.isEmpty(responseJson)){
             return null;
         }
@@ -128,13 +131,17 @@ public class QueryProcess {
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(responseJson);
             JSONArray itemsArray = baseJsonResponse.getJSONArray("items");
+
+            int numberOfReturnedBooks = itemsArray.length();
+            Log.i(LOG_TAG, "There are " + numberOfReturnedBooks + " books returned");
+
             for (int i=0; i < itemsArray.length(); i++) {
                 JSONObject currentBook = itemsArray.getJSONObject(i);
                 JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
                 String title = volumeInfo.getString("title");
 
-                JSONArray authors =null;
-                String firstAuthor =null;
+                JSONArray authors = null;
+                String firstAuthor = "N/A";
                 //only fetch the first author
                 if (volumeInfo.getJSONArray("authors") != null){
                     authors = volumeInfo.getJSONArray("authors");
@@ -143,6 +150,7 @@ public class QueryProcess {
 
                 BookInfo book = new BookInfo(title, firstAuthor);
                 books.add(book);
+                Log.i(LOG_TAG,"Book info parsing succeeds once");
             }
 
         } catch (JSONException e) {
