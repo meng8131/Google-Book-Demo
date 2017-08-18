@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(LOG_TAG,"Earthquake Activity onCreate() method is called");
+        Log.i(LOG_TAG,"MainActivity onCreate() method is called");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

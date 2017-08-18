@@ -4,6 +4,7 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -14,10 +15,14 @@ import static com.example.android.googlebookdemo.MainActivity.queryUrl;
 
 public class ResultActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<BookInfo>> {
 
+    private static final String LOG_TAG = ResultActivity.class.getName();
+
     private QueryAdapter mQueryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(LOG_TAG,"ResultActivity onCreate() method is called");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
@@ -46,7 +51,7 @@ public class ResultActivity extends AppCompatActivity implements LoaderManager.L
 
         //如果JSON解析数据非null，则向adapter添加解析得到的Array
         if (data != null && !data.isEmpty()){
-            mQueryAdapter.add((BookInfo) data);
+            mQueryAdapter.addAll(data);
         }
     }
 
